@@ -29,6 +29,7 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 def get_stats():
     """ Returns a dictionary of stats"""
     stats = youtube.channels().list(part='statistics', forUsername='kevinmcaleer28').execute()
+    print(stats)
     return stats
 
 def get_subs():
@@ -37,11 +38,14 @@ def get_subs():
     items = stats.get("items")[0]
     statistics = items.get("statistics")
     subs = statistics.get("subscriberCount")
-    return str(subs)
+    print(subs)
+    return subs
 
-while True:
+while True or KeyboardInterrupt:
+    message = get_subs()
+    print(message)
     try:
-        mqtt_client.publish(topic, get_subs())
+        mqtt_client.publish(topic, message)
     except:
          print("There was a problem publishing the message") 
     
