@@ -1,4 +1,4 @@
-# from sense_hat import SenseHat
+from sense_hat import SenseHat
 from time import sleep
 from datetime import datetime 
 import paho.mqtt.client as paho
@@ -10,7 +10,7 @@ mqtt_server = '192.168.1.152'
 client_id = "sensehat"
 
 update_frequency_in_seconds = 5
-# sense = SenseHat()
+sense = SenseHat()
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")

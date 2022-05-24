@@ -2,7 +2,8 @@
 # YouTube stats
 
 import paho.mqtt.client as paho
-from time import sleep
+from time import sleep, time
+from datetime import datetime, timedelta
 from googleapiclient.discovery import build
 from secret import api_key
 
@@ -41,8 +42,25 @@ def get_subs():
     print(subs)
     return subs
 
+# get the current time
+start_time = datetime.now()
+print(f"time is: {start_time}")
+message = get_subs()
+
+# interval to wait in minutes before getting the subcount again 
+interval = 30
+
 while True or KeyboardInterrupt:
-    message = get_subs()
+    
+    current_time = datetime.now()
+    print(f'Current time is: {current_time}')
+    check = start_time + timedelta(minutes=interval)
+    print(f'start: {start_time}, current:{current_time}, check {check}')
+    if datetime.now() >= check:
+        print(f'{interval} minutes has elapsed')
+        start_time = datetime.now()
+        # get the current sub count
+        message = get_subs()
     print(message)
     try:
         mqtt_client.publish(topic, message)
