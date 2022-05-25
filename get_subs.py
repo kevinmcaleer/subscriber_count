@@ -18,7 +18,7 @@ client_id = "subscriber_counter"
 topic = "/subscribers"
 
 def on_publish(client, userdata, result):    
-    print(f"Number of subscribers: {get_subs()}")
+    # print(f"Number of subscribers: {get_subs()}")
     pass
 
 mqtt_client = paho.Client(client_id=client_id)
@@ -61,7 +61,7 @@ while True or KeyboardInterrupt:
         start_time = datetime.now()
         # get the current sub count
         message = get_subs()
-    print(message)
+    # print(message)
     try:
         mqtt_client.publish(topic, message)
     except:
